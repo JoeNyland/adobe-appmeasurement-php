@@ -1,0 +1,10 @@
+{
+  "name": "adobe/appmeasurement-php",
+  "type": "library",
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "Adobe\\": "src/Adobe"
+    }
+  }
+}
