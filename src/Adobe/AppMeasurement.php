@@ -5,6 +5,8 @@
  * Copyright 1996-2012. Adobe, Inc. All Rights Reserved
  */
 
+namespace Adobe;
+
 class AppMeasurement {
     // private variables (internal use only)
     private $version;
