@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
  * Omniture Measurement Library (PHP)
