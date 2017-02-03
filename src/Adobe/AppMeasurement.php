@@ -796,8 +796,14 @@ class AppMeasurement {
         $s =& $this;
 
         foreach ($s->accountVarList as $varKey) {
+
             $varValue = $s->getAccountVar($varKey);
-            $overrideValue = $variableOverrides[$varKey];
+
+            if (isset($variableOverrides[$varKey])) {
+                $overrideValue = $variableOverrides[$varKey];
+            } else {
+                $overrideValue = null;
+            }
 
             // overwrite the override value if it's not set
             if (!$s->isSetString($overrideValue)) {
@@ -807,11 +813,18 @@ class AppMeasurement {
                     $variableOverrides["!$varKey"] = '1';	// "1" simply acts as a mark that the variable was not set
                 }
             }
+
         }
 
         foreach ($s->accountConfigList as $varKey) {
+
             $varValue = $s->getAccountVar($varKey);
-            $overrideValue = $variableOverrides[$varKey];
+
+            if (isset($variableOverrides[$varKey])) {
+                $overrideValue = $variableOverrides[$varKey];
+            } else {
+                $overrideValue = null;
+            }
 
             // overwrite the override value if it's not set
             if (!$s->isSetString($overrideValue)) {
@@ -821,6 +834,7 @@ class AppMeasurement {
                     $variableOverrides["!$varKey"] = '1';	// "1" simply acts as a mark that the variable was not set
                 }
             }
+
         }
     }
 
@@ -829,16 +843,20 @@ class AppMeasurement {
         $s =& $this;
 
         foreach ($s->accountVarList as $varKey) {
-            $overrideValue = $variableOverrides[$varKey];
-            if ($s->isSetString($overrideValue) || $s->isSetString($variableOverrides["!$varKey"])) {
-                $s->setAccountVar($varKey, $overrideValue);
+            if (isset($variableOverrides[$varKey])) {
+                $overrideValue = $variableOverrides[$varKey];
+                if ($s->isSetString($overrideValue)) {
+                    $s->setAccountVar($varKey, $overrideValue);
+                }
             }
         }
 
         foreach ($s->accountConfigList as $varKey) {
-            $overrideValue = $variableOverrides[$varKey];
-            if ($s->isSetString($overrideValue) || $s->isSetString($variableOverrides["!$varKey"])) {
-                $s->setAccountVar($varKey, $overrideValue);
+            if (isset($variableOverrides[$varKey])) {
+                $overrideValue = $variableOverrides[$varKey];
+                if ($s->isSetString($overrideValue)) {
+                    $s->setAccountVar($varKey, $overrideValue);
+                }
             }
         }
     }
