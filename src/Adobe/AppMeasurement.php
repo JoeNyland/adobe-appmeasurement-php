@@ -1473,4 +1473,3 @@ class AppMeasurement {
         return "\t<input type='hidden' name='" . $s->getOmnitureParamName('vid') . "' value='" . $s->escape($s->visitorID) . "' />\n</form>";
     }
 }
-class OmnitureMeasurement extends AppMeasurement {}
