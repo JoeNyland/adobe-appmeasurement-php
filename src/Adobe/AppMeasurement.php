@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Omniture Measurement Library (PHP)
+ * Adobe AppMeasurement Library (PHP)
  * Copyright 1996-2012. Adobe, Inc. All Rights Reserved
  */
 
