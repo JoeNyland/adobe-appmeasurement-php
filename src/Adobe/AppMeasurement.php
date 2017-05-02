@@ -15,7 +15,7 @@ class AppMeasurement {
     private $accountConfigList;
     private $manageVisitorID;
     private $persistVisitorIDInLinks;
-    private static $singletonInstance;	// only used if the singleton interface is invoked
+    private static $singletonInstance; // only used if the singleton interface is invoked
 
     // private account variables (internal use only)
     private $pe;
@@ -506,10 +506,10 @@ class AppMeasurement {
         $s->ssl = $s->getDefaultSSL();
         $s->charSet = $s->getDefaultCharSet();
         $s->botDetection = false;
-        $s->sendFromServer = false;	// default to rendering an IMG tag
+        $s->sendFromServer = false; // default to rendering an IMG tag
         $s->userAgent = $s->getDefaultUserAgent();  // technically only used if sendFromServer is true, but this lets people append to it
 
-        $s->version = "PHP-1.2.2";	// PHP
+        $s->version = "PHP-1.2.2"; // PHP
     }
 
     // public methods
@@ -642,7 +642,7 @@ class AppMeasurement {
 
         // setup output buffer/callback from persisting visitor ID in links (at end of request)
         if ($persistVisitorIDInLinks) {
-            ob_start(array($s, 'rewriteLinksCallback'));	// does not affect headers (cookie/redirect)
+            ob_start(array($s, 'rewriteLinksCallback')); // does not affect headers (cookie/redirect)
             $s->persistVisitorIDInLinks = true;
         }
 
@@ -650,10 +650,10 @@ class AppMeasurement {
         if (!$s->isSetString($s->visitorID)) {
             if ($s->getManagedVisitorID()) {
                 $s->visitorID = $s->getManagedVisitorID();
-            } elseif (!$s->getOmnitureQueryParam('vid')) {	// only generate an id if there is no managed id available and vid is not on the query string (if persistVisitorIDInLinks is off, this may be on the query string)
+            } elseif (!$s->getOmnitureQueryParam('vid')) { // only generate an id if there is no managed id available and vid is not on the query string (if persistVisitorIDInLinks is off, this may be on the query string)
                 $s->visitorID = $s->generateVisitorID();
                 $generated_visitor_id = true;
-            }	// otherwise, visitor id is left blank, and the ip address is used
+            } // otherwise, visitor id is left blank, and the ip address is used
         }
 
         // set visitor id in cookie -- always set the cookie (even if one already exists), because may need to overwrite old cookie value
@@ -662,8 +662,8 @@ class AppMeasurement {
         // redirect to self (with generated visitor id) if visitor id was generated and redirection parameter was specified
         if ($generated_visitor_id && $redirectOnGeneratedVisitorID) {
             // build redirect vars string
-            $redirect_vars_string = $s->getOmnitureParamName('vid') . '=' . $s->escape($s->visitorID);	// add generated visitor id (also acts as flag to not redirect again)
-            foreach ($additionalRedirectVars as $key => $value) {										// add additional redirect vars
+            $redirect_vars_string = $s->getOmnitureParamName('vid') . '=' . $s->escape($s->visitorID); // add generated visitor id (also acts as flag to not redirect again)
+            foreach ($additionalRedirectVars as $key => $value) {          // add additional redirect vars
                 $redirect_vars_string .= '&' . $s->escape($key) . '=' . $s->escape($value);
             }
 
@@ -730,7 +730,7 @@ class AppMeasurement {
             }
         }
 
-        return '';	// no mobile subscriber id present in request headers
+        return ''; // no mobile subscriber id present in request headers
     }
 
     private function getOmnitureCookie($name)
@@ -744,7 +744,7 @@ class AppMeasurement {
     {
         $s =& $this;
 
-        return $_REQUEST[$s->getOmnitureParamName($name)];	// could be post/get
+        return $_REQUEST[$s->getOmnitureParamName($name)]; // could be post/get
     }
 
     private function getOmnitureParamName($name)
@@ -763,17 +763,17 @@ class AppMeasurement {
 
         // set cookie lifetime
         if (!$s->isSetString($s->cookieLifetime)) {
-            $cookie_expiration = strtotime('+5 years');			// default to five years (if not set)
+            $cookie_expiration = strtotime('+5 years');   // default to five years (if not set)
         } elseif (strtolower($s->cookieLifetime) == 'session') {
-            $cookie_expiration = 0;								// session cookie
+            $cookie_expiration = 0;        // session cookie
         } else {
-            $cookie_expiration = time() + $s->cookieLifetime;	// number of seconds specified
+            $cookie_expiration = time() + $s->cookieLifetime; // number of seconds specified
         }
 
         // set cookie domain
         $domain_parts = explode('.', $_SERVER['SERVER_NAME']);
-        if (count($domain_parts) == 1) {	// ie, 'localhost'
-            $cookie_domain = '';			// allow cookie to be set on domains without periods
+        if (count($domain_parts) == 1) { // ie, 'localhost'
+            $cookie_domain = '';   // allow cookie to be set on domains without periods
         } else {
             if (!$s->isSetString($s->cookieDomainPeriods) || !$s->isNumber($s->cookieDomainPeriods) || $s->cookieDomainPeriods < 2) {
                 $num_domain_parts_requested = 2;
@@ -810,7 +810,7 @@ class AppMeasurement {
                 if ($s->isSetString($varValue)) {
                     $variableOverrides[$varKey] = $varValue;
                 } else {
-                    $variableOverrides["!$varKey"] = '1';	// "1" simply acts as a mark that the variable was not set
+                    $variableOverrides["!$varKey"] = '1'; // "1" simply acts as a mark that the variable was not set
                 }
             }
 
@@ -831,7 +831,7 @@ class AppMeasurement {
                 if ($s->isSetString($varValue)) {
                     $variableOverrides[$varKey] = $varValue;
                 } else {
-                    $variableOverrides["!$varKey"] = '1';	// "1" simply acts as a mark that the variable was not set
+                    $variableOverrides["!$varKey"] = '1'; // "1" simply acts as a mark that the variable was not set
                 }
             }
 
@@ -901,8 +901,8 @@ class AppMeasurement {
 
         // initialize query string - when sending from server or managing visitor ID, turn off mod_stats cookie handshake
         if ($s->sendFromServer || $s->manageVisitorID) {
-            $queryString = '&cl=none';		// cookie lifetime => no cookies
-            $ignoreCookieLifetime = true;	// ignore any user setting for cookie lifetime
+            $queryString = '&cl=none';  // cookie lifetime => no cookies
+            $ignoreCookieLifetime = true; // ignore any user setting for cookie lifetime
         } else {
             $queryString = '';
         }
@@ -936,7 +936,7 @@ class AppMeasurement {
 
                 // check for key in var filter
                 if ($s->isSetString($varFilter) && strpos($varFilter, ",$varKey,") === false) {
-                    continue;	// var key is filtered out
+                    continue; // var key is filtered out
                 }
 
                 // key transformation (and applying event filters, etc.)
@@ -981,7 +981,7 @@ class AppMeasurement {
                 } else if ($varKey == "cookieDomainPeriods") {
                     $varKey = "cdp";
                 } else if ($varKey == "cookieLifetime") {
-                    if ($ignoreCookieLifetime) {	// ignore cookie lifetime when overridden above
+                    if ($ignoreCookieLifetime) { // ignore cookie lifetime when overridden above
                         continue;
                     }
                     $varKey = "cl";
@@ -1064,18 +1064,18 @@ class AppMeasurement {
                     $dc = "112";
                 }
             } else {
-                $dc = "112";	// default to SJO
+                $dc = "112"; // default to SJO
             }
 
             $trackingServer = "$prefix.$dc.2o7.net";
         } else if ($s->ssl && $s->isSetString($s->trackingServerSecure)) {
-            $trackingServer = $s->trackingServerSecure;	// use trackingServerSecure if specified
+            $trackingServer = $s->trackingServerSecure; // use trackingServerSecure if specified
         }
 
         // build request
         $requestProtocol = ($s->ssl ? "https" : "http");
         $returnType = $s->getReturnType();
-        $version = ($s->sendFromServer ? $s->version . 'S' : $s->version);	// differentiate between img / server-to-server requests
+        $version = ($s->sendFromServer ? $s->version . 'S' : $s->version); // differentiate between img / server-to-server requests
         $requestString = "$requestProtocol://$trackingServer/b/ss/$s->account/$returnType/$version/$cacheBusting?AQB=1&ndh=1&$queryString&AQE=1";
 
         // send request or render image
@@ -1168,12 +1168,12 @@ class AppMeasurement {
         $s =& $this;
 
         if ($s->sendFromServer) {
-            return '0';			// return an html space
+            return '0';   // return an html space
         } else {
             if ($s->mobile) {
-                return '5.1';	// use mobile headers and return a gif
+                return '5.1'; // use mobile headers and return a gif
             } else {
-                return '1';		// return a gif
+                return '1';  // return a gif
             }
         }
     }
@@ -1205,7 +1205,7 @@ class AppMeasurement {
 
         // build referrer if not already set
         if (!$s->isSetString($s->referrer)) {
-            if (!$s->isMobileImageTag() || !$s->isReferrerOnSameDomain()) {	// only set s.referrer for mobile img if the referrer is on a different domain (reserve url length)
+            if (!$s->isMobileImageTag() || !$s->isReferrerOnSameDomain()) { // only set s.referrer for mobile img if the referrer is on a different domain (reserve url length)
                 $s->referrer = $s->getDefaultReferrer();
             }
         }
@@ -1261,12 +1261,12 @@ class AppMeasurement {
     private function getTopLevelDomain($domain)
     {
         $domain_elements = explode('.', $domain);
-        if (count($domain_elements) == 1) {	// ie, 'localhost'
+        if (count($domain_elements) == 1) { // ie, 'localhost'
             return $domain;
         }
 
         $last_element = array_pop($domain_elements);
-        if (strpos($last_element, ':') !== false) {	// remove port if necessary
+        if (strpos($last_element, ':') !== false) { // remove port if necessary
             $last_element = substr($last_element, 0, strpos($last_element, ':'));
         }
         return array_pop($domain_elements) . '.' . $last_element;
@@ -1274,7 +1274,7 @@ class AppMeasurement {
 
     private function isSetString($var)
     {
-        return ($var != '' && $var != NULL);	// '0' is valid
+        return ($var != '' && $var != NULL); // '0' is valid
     }
 
     private function isNumber($value)
@@ -1377,7 +1377,7 @@ class AppMeasurement {
             $xff_ips[] = $_SERVER['REMOTE_ADDR'];
         }
 
-        return implode(', ', $xff_ips);	// will return blank if not on a web server
+        return implode(', ', $xff_ips); // will return blank if not on a web server
     }
 
     private function getHTTPHeaders()
@@ -1393,7 +1393,7 @@ class AppMeasurement {
                 // HTTP header name example: HTTP_X_FORWARDED_FOR
                 if (strpos($name, 'HTTP_') === 0) {
                     $nameParts = explode('_', $name);
-                    array_shift($nameParts);	// remove 'HTTP'
+                    array_shift($nameParts); // remove 'HTTP'
                     $newNameParts = array();
                     foreach ($nameParts as $namePart) {
                         $newNameParts[] = ucfirst(strtolower($namePart));
