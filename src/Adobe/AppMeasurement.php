@@ -797,8 +797,7 @@ class AppMeasurement {
 
         foreach ($s->accountVarList as $varKey) {
             $varValue = $s->getAccountVar($varKey);
-            $overrideValue = $variableOverrides[$varKey];
-
+            $overrideValue = isset($variableOverrides[$varKey]) ? $variableOverrides[$varKey] : null;
             // overwrite the override value if it's not set
             if (!$s->isSetString($overrideValue)) {
                 if ($s->isSetString($varValue)) {
@@ -811,8 +810,7 @@ class AppMeasurement {
 
         foreach ($s->accountConfigList as $varKey) {
             $varValue = $s->getAccountVar($varKey);
-            $overrideValue = $variableOverrides[$varKey];
-
+            $overrideValue = isset($variableOverrides[$varKey]) ? $variableOverrides[$varKey] : null;
             // overwrite the override value if it's not set
             if (!$s->isSetString($overrideValue)) {
                 if ($s->isSetString($varValue)) {
@@ -829,15 +827,17 @@ class AppMeasurement {
         $s =& $this;
 
         foreach ($s->accountVarList as $varKey) {
-            $overrideValue = $variableOverrides[$varKey];
-            if ($s->isSetString($overrideValue) || $s->isSetString($variableOverrides["!$varKey"])) {
+            $overrideValue = isset($variableOverrides[$varKey]) ? $variableOverrides[$varKey] : null;
+            if ($s->isSetString($overrideValue) ||
+                (isset($variableOverrides["!$varKey"]) && $s->isSetString($variableOverrides["!$varKey"]))) {
                 $s->setAccountVar($varKey, $overrideValue);
             }
         }
 
         foreach ($s->accountConfigList as $varKey) {
-            $overrideValue = $variableOverrides[$varKey];
-            if ($s->isSetString($overrideValue) || $s->isSetString($variableOverrides["!$varKey"])) {
+            $overrideValue = isset($variableOverrides[$varKey]) ? $variableOverrides[$varKey] : null;
+            if ($s->isSetString($overrideValue) ||
+                (isset($variableOverrides["!$varKey"]) && $s->isSetString($variableOverrides["!$varKey"]))) {
                 $s->setAccountVar($varKey, $overrideValue);
             }
         }
