@@ -49,7 +49,7 @@ $client = new \Adobe\AppMeasurement();
 $client->sendFromServer = true;
 $client->ssl = true;
 
-$client->pageName = 'Home Page'
+$client->pageName = 'Home Page';
 $client->eVar1 = 'foobar';
 
 $client->track();
