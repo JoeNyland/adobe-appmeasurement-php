@@ -547,10 +547,14 @@ class AppMeasurement {
         $s->validateRequiredRequestVariables();
 
         // build query string and make request (bot detection if applicable)
-        if ($s->isSetString($s->account) && !($s->botDetection && $s->isBot())) {
-            $s->handleLinkTracking();
-            $queryString .= $s->getQueryString();
-            $s->makeRequest($cacheBusting, $queryString);
+        if ($s->isSetString($s->account)) {
+            if (!($s->botDetection && $s->isBot())) {
+                $s->handleLinkTracking();
+                $queryString .= $s->getQueryString();
+                $s->makeRequest($cacheBusting, $queryString);
+            }
+        } else {
+            throw new AppMeasurement\Error('$s->account must be set');
         }
 
         // restore variables (if applicable)
