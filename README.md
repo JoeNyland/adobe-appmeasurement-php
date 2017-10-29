@@ -14,7 +14,6 @@ The Adobe AppMeasurement library for PHP lets you use PHP to monitor and evaluat
 ## Requirements
 
 ToDo: Revise this section
-* Supports PHP 5 or later.
 * Requires the cURL library installed to use direct server-to-server requests.
 * Assumes that all strings are in UTF-8 format. You must convert any non-UTF-8 strings before using them in Measurement Library object (for example, using `iconv()`).
 
