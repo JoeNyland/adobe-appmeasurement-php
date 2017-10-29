@@ -2,7 +2,8 @@
   "name": "adobe/appmeasurement-php",
   "type": "library",
   "require": {
-    "php": ">=5.0"
+    "php": ">=5.0",
+    "lib-curl": "*"
   },
   "autoload": {
     "psr-4": {
