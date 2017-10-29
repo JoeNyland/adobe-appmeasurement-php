@@ -29,7 +29,7 @@ The Adobe AppMeasurement library for PHP lets you use PHP to monitor and evaluat
         }
     ],
     "require": {
-        "adobe/appmeasurement-php": "dev-master#1.2.2"
+        "adobe/appmeasurement-php": "dev-master"
     }
 }
 ```
