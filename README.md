@@ -13,7 +13,6 @@ The Adobe AppMeasurement library for PHP lets you use PHP to monitor and evaluat
 
 ## Requirements
 
-ToDo: Revise this section
 * Assumes that all strings are in UTF-8 format. You must convert any non-UTF-8 strings before using them in Measurement Library object (for example, using `iconv()`).
 
 ## Installation
