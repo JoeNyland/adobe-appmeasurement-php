@@ -17,6 +17,13 @@ before_install:
 
 install:
   - composer install
+  - composer require satooshi/php-coveralls:~1.0@stable
+
+before_script:
+  - mkdir -p build/logs
 
 script:
-  - ./vendor/bin/phpunit
+  - ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml --colors
+
+after_success:
+  - sh -c 'php vendor/bin/coveralls -v'
