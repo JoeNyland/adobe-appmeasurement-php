@@ -5,12 +5,9 @@ namespace Adobe\Tests;
 use Adobe\AppMeasurement;
 use Adobe\AppMeasurement\Error;
 use PHPUnit\Framework\TestCase;
-use phpmock\phpunit\PHPMock;
 
 class AppMeasurementTest extends TestCase
 {
-    use PHPMock;
-
     /**
      * int
      */
